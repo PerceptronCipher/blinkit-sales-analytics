@@ -1,0 +1,214 @@
+BLINKIT PYTHON STATISTICAL ANALYSIS - RESULTS SUMMARY
+
+Author: Adeyemi Boluwatife
+Analysis Tool: Python (Pandas, SciPy, Seaborn)
+Date: October 2025
+Dataset: 8,523 transactions
+
+
+DESCRIPTIVE STATISTICS
+
+Sales Distribution:
+Mean: $140.99
+Median: $143.01
+Standard Deviation: $62.28
+Range: $31.29 - $266.89
+
+The mean and median are almost identical, which tells us sales are evenly spread 
+without extreme outliers pulling the average up or down. This is a healthy sign 
+for the business.
+
+Item Weight:
+Mean: 12.86 kg
+Median: 12.86 kg
+Standard Deviation: 4.23 kg
+
+Weight is perfectly centered. Most products fall within a manageable range for 
+shelving and handling.
+
+Item Visibility:
+Mean: 6.61%
+Median: 5.39%
+Standard Deviation: 5.16%
+
+Half of all items get less than 5.4% shelf visibility. That's pretty low. This 
+could explain why some products underperform even when they're good quality.
+
+Rating Distribution:
+Mean: 3.97
+Mode: 4.0 (39.2% of all ratings)
+Range: 1.0 - 5.0
+
+Customers are happy. Nearly 40% give a perfect 4.0 rating, and the average sits 
+just below 4. Very few complaints in this dataset.
+
+Outlet Establishment Year:
+Range: 2011 - 2022
+Most Common: 2018
+Mean: 2016.45
+
+2018 stands out as a big expansion year. Whatever strategy was used then might be 
+worth replicating.
+
+
+CORRELATION ANALYSIS
+
+Sales vs Item Visibility:
+r = -0.001, p = 0.903
+
+Basically zero correlation. At first this seems weird because common sense says 
+more visible items should sell more. But the relationship might not be linear. 
+Maybe visibility only matters once you cross a certain threshold, like 10% or 15%.
+
+Sales vs Item Weight:
+r = 0.025, p = 0.022
+
+Technically significant but the correlation is so weak it's almost meaningless. 
+Heavier items sell a tiny bit more, but weight isn't a real driver of sales.
+
+Sales vs Rating:
+r = 0.011, p = 0.296
+
+No relationship between rating and sales. This is actually surprising. You'd think 
+highly rated products would fly off shelves, but that's not what the data shows. 
+It suggests that marketing and placement matter way more than product quality alone.
+
+Item Visibility vs Item Weight:
+r = -0.011, p = 0.293
+
+These two are completely independent. Good news for modeling because it means no 
+multicollinearity issues if we use both in a regression.
+
+
+CHI-SQUARE TESTS
+
+Test 1: Fat Content vs Location Type
+Chi-square = 0.123, p = 0.940
+
+No relationship here. Customer preference for low-fat vs regular items is basically 
+the same whether you're in Tier 1, 2, or 3 cities.
+
+The breakdown:
+Tier 1: 64.5% prefer low-fat
+Tier 2: 65.0% prefer low-fat
+Tier 3: 64.7% prefer low-fat
+
+Almost identical. This makes inventory planning way easier because you can use the 
+same 65/35 split everywhere.
+
+Test 2: Item Type vs Outlet Type
+Chi-square = 21.36, p = 0.999
+
+Product categories are distributed evenly across outlet types. Supermarkets and 
+grocery stores carry similar mixes of fruits, snacks, dairy, etc. No real 
+specialization by format.
+
+
+WHAT THE STATS ARE REALLY SAYING
+
+The continuous variables (weight, visibility, rating) barely correlate with sales. 
+This tells us something important: individual product features don't drive 
+performance. It's the bigger picture stuff like which outlet you're in, what size 
+it is, and where it's located.
+
+Think of it this way: a great product with a 5-star rating still won't sell if 
+it's in a poorly performing outlet with bad foot traffic. On the flip side, an 
+average product in a prime location with good visibility will move units.
+
+
+THE VISIBILITY PUZZLE
+
+SQL analysis showed that high visibility items perform better. But the correlation 
+here is flat. What gives?
+
+The answer is probably that visibility works in categories, not on a smooth scale. 
+Being at 3% vs 5% visibility might not matter much, but jumping from 5% to 15% 
+could make a huge difference. It's a threshold effect, not a linear one.
+
+
+QUALITY DOESN'T EQUAL SALES
+
+The rating-sales disconnect is eye-opening. Products with 4.5+ ratings don't 
+necessarily outsell 3.5-rated items. This means customers are buying what they see, 
+not necessarily what's best. 
+
+Takeaway: Better shelf placement beats better product quality when it comes to 
+moving inventory.
+
+
+STANDARDIZATION WORKS
+
+Both chi-square tests came back with no significant differences. Customers in 
+different cities want similar things. Different outlet formats stock similar 
+products. This validates a one-size-fits-most approach.
+
+You don't need custom strategies for each location or outlet type. Keep it simple 
+and replicate what works.
+
+
+BUSINESS IMPACT
+
+Stop obsessing over product attributes. The weight of an item or its exact rating 
+matters way less than where you put it and which outlet it's in.
+
+Keep the 65/35 low-fat to regular split across all locations. No need to customize 
+by tier.
+
+Focus on outlet-level decisions. Type, size, and location are what really drive 
+sales, not tweaking individual SKUs.
+
+Investigate visibility thresholds. Find the magic number where visibility actually 
+starts to impact sales. My guess is somewhere around 10-15%.
+
+Marketing over quality. If a product has decent reviews (3.5+), invest in making 
+it more visible rather than trying to improve it to 4.5+.
+
+
+STATISTICAL METHODS USED
+
+Pearson correlation for continuous variables
+Chi-square test of independence for categorical relationships
+Descriptive statistics (mean, median, std dev)
+Significance level: p < 0.05
+
+All tests run in Python using Pandas, NumPy, and SciPy.
+
+
+WHAT WE DIDN'T TEST
+
+Regression modeling with all variables combined
+ANOVA to compare mean sales across groups
+Non-linear relationships or interaction effects
+Time-based patterns or seasonal trends
+Profitability analysis (only have revenue data)
+
+
+HONEST LIMITATIONS
+
+Correlation doesn't mean causation. Just because rating and sales aren't correlated 
+doesn't mean ratings are useless. There could be hidden factors we're not seeing.
+
+We only looked at linear relationships. More complex patterns might exist.
+
+No customer demographic data. We can't segment by age, income, family size, etc.
+
+Cross-sectional analysis only. We're looking at a snapshot, not tracking changes 
+over time.
+
+
+THE BOTTOM LINE
+
+Your sales are driven by where you sell and how you present products, not by the 
+products themselves. This is good news because outlet location and format are 
+strategic decisions you can control.
+
+The data supports keeping operations standardized. Same product mix, same ratios, 
+replicate successful outlet formats. Don't overcomplicate it.
+
+The one area to dig deeper is visibility. There's likely a sweet spot where 
+increasing visibility actually pays off. Find that threshold and make sure every 
+product hits it.
+
+
+For questions contact: Adeyemiboluwatife.olayinka@gmail.com
+Tools: Python, Pandas, SciPy
